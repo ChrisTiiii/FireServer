@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //    private static final int PORT = 12342;//接收客户端的监听端口
 
     private static TCPSocket tcpSocket;
-    public String SERVICE_IP = "10.101.80.134";//10.101.208.78   10.101.80.134
+    public String SERVICE_IP = "10.101.208.155";//10.101.208.78   10.101.80.134
     public int SERVICE_PORT = 23303;
     private Socket socket = new Socket();
     private OrderService orderService;
@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
     private FireBox fireBox;
     public static final String SHEBEI_IP = "10.101.208.101";
     public static final String SHEBEI_PORT = "28327";
-        private static final String CHUAN = "/dev/ttymxc2";
+    private static final String CHUAN = "/dev/ttymxc2";
     private static final String BOTE = "9600";
-//    private static final String CHUAN = "/dev/ttyS0";
+//        private static final String CHUAN = "/dev/ttyS0";
     private static final int TCP_BACK_DATA = 0x213;
 
     private SerialPortFinder serialPortFinder;
@@ -112,10 +112,12 @@ public class MainActivity extends AppCompatActivity {
             case TCP_BACK_DATA:
                 String order = messageEvent.getMessage();
                 order = order.replaceAll(" ", "");
-                Toast.makeText(MainActivity.this, "收到信息啦！" + order, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "收到信息啦！" + order, Toast.LENGTH_LONG).show();
                 if (serialHelper.isOpen()) {
+                    Toast.makeText(this, "开门成功", Toast.LENGTH_LONG).show();
                     serialHelper.sendHex(order);
-                }
+                } else
+                    Toast.makeText(this, "串口没打开", Toast.LENGTH_LONG).show();
                 break;
 
         }
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         banner1.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
         banner2.setImages(bannerList).setImageLoader(new GlideImageLoader()).start();
         setVideo();
-//        initSerial();
+        initSerial();
     }
 
     /**
@@ -137,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
     private void initSerial() {
         serialPortFinder = new SerialPortFinder();
         serialHelper = new SerialHelper() {
-
             @Override
             protected void onDataReceived(final ComBean comBean) {
                 runOnUiThread(new Runnable() {
@@ -201,4 +202,6 @@ public class MainActivity extends AppCompatActivity {
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
     }
+
+
 }
