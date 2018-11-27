@@ -45,9 +45,7 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView tv;
 //    private static final int PORT = 12342;//接收客户端的监听端口
-
     private static TCPSocket tcpSocket;
     public String SERVICE_IP = "10.101.208.155";//10.101.208.78   10.101.80.134
     public int SERVICE_PORT = 23303;
