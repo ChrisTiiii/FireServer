@@ -3,15 +3,11 @@ package com.example.juicekaaa.fireserver;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.MediaController;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -36,8 +32,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android_serialport_api.SerialPortFinder;
 import butterknife.BindView;
@@ -47,12 +41,10 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 //    private static final int PORT = 12342;//接收客户端的监听端口
     private static TCPSocket tcpSocket;
-    public String SERVICE_IP = "10.101.208.155";//10.101.208.78   10.101.80.134
+    public String SERVICE_IP = "10.101.208.157";//10.101.208.78   10.101.80.134 10.101.80.100 10.101.208.157 10.101.208.157
     public int SERVICE_PORT = 23303;
     private Socket socket = new Socket();
-    private OrderService orderService;
     private String MAC = "";
-    HeartbeatTimer timer;
 
 
     private List<Integer> bannerList = new ArrayList();
@@ -95,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         //用于接收命令
         tcpSocket = new TCPSocket(socket, SERVICE_IP, SERVICE_PORT, 2);
         tcpSocket.start();
-
         //用于发送心跳包
         TCPSocket sendHeart = new TCPSocket(EncodingConversionTools.HexString2Bytes(MAC));
 //        tcpSocket.setPriority(Thread.NORM_PRIORITY + 3);
@@ -148,14 +139,14 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        try {
-//            设置串口信息
-            serialHelper.setBaudRate(BOTE);
-            serialHelper.setPort(CHUAN);
-            serialHelper.open();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            设置串口信息
+//            serialHelper.setBaudRate(BOTE);
+//            serialHelper.setPort(CHUAN);
+//            serialHelper.open();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

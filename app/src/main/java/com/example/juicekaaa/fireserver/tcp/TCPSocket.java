@@ -21,8 +21,8 @@ public class TCPSocket extends Thread {
 
     private static final String TAG = "Socket";
     private long lastReceiveTime = 0;
-    private static final long TIME_OUT = 30 * 1000;
-    private static final long HEARTBEAT_MESSAGE_DURATION = 10 * 1000;
+    private static final long TIME_OUT = 60 * 1000; //30
+    private static final long HEARTBEAT_MESSAGE_DURATION = 50 * 1000; //10
     private HeartbeatTimer timer;
     private static final int TCP_BACK_DATA = 0x213;
     private static Socket connectsocket;
@@ -262,8 +262,7 @@ public class TCPSocket extends Thread {
             }
 
         });
-        timer.startTimer(1000 * 60, 1000 * 20);
-
+        timer.startTimer(1000 * 60, 1000 * 60); //20
     }
 
     //接收数据
